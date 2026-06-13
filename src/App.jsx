@@ -101,7 +101,7 @@ const initialMatches = [
   { id: 2, home: 'kor', away: 'cze', group: 'א', date: '12/06/2026', time: '05:00', stadium: 'גוואדלחרה', broadcaster: 'כאן 11, כאן box, ספורט 1', homeScore: null, awayScore: null, predictedHome: '', predictedAway: '' },
   { id: 3, home: 'can', away: 'bih', group: 'ב', date: '12/06/2026', time: '22:00', stadium: 'טורונטו', broadcaster: 'כאן 11, כאן box, ספורט 1', homeScore: null, awayScore: null, predictedHome: '', predictedAway: '' },
   { id: 4, home: 'usa', away: 'par', group: 'ד', date: '13/06/2026', time: '04:00', stadium: 'לוס אנגלס', broadcaster: 'כאן box, ספורט 1', homeScore: null, awayScore: null, predictedHome: '', predictedAway: '' },
-  { id: 5, home: 'aus', away: 'tur', group: 'ד', date: '13/06/2026', time: '07:00', stadium: 'ואנקובר', broadcaster: 'כאן box, ספורט 1', homeScore: null, awayScore: null, predictedHome: '', predictedAway: '' },
+  { id: 5, home: 'aus', away: 'tur', group: 'ד', date: '14/06/2026', time: '07:00', stadium: 'ואנקובר', broadcaster: 'כאן box, ספורט 1', homeScore: null, awayScore: null, predictedHome: '', predictedAway: '' },
   { id: 6, home: 'qat', away: 'sui', group: 'ב', date: '13/06/2026', time: '22:00', stadium: 'סן פרנסיסקו', broadcaster: 'כאן 11, כאן box, ספורט 1', homeScore: null, awayScore: null, predictedHome: '', predictedAway: '' },
   { id: 7, home: 'bra', away: 'mar', group: 'ג', date: '14/06/2026', time: '01:00', stadium: 'ניו ג׳רזי', broadcaster: 'כאן 11, כאן box, ספורט 1', homeScore: null, awayScore: null, predictedHome: '', predictedAway: '' },
   { id: 8, home: 'hai', away: 'sco', group: 'ג', date: '14/06/2026', time: '04:00', stadium: 'בוסטון', broadcaster: 'כאן box, ספורט 1', homeScore: null, awayScore: null, predictedHome: '', predictedAway: '' },
