@@ -109,12 +109,21 @@ exports.handler = async function(event, context) {
   }
 
   try {
-    const res = await fetch("https://api-football-v1.p.rapidapi.com/v3/fixtures?league=1&season=2026", {
-      headers: {
-        "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
-        "x-rapidapi-key": apiKey
-      }
-    });
+    const isApiSports = apiKey.length === 32;
+    const url = isApiSports 
+      ? "https://v3.football.api-sports.io/fixtures?league=1&season=2026"
+      : "https://api-football-v1.p.rapidapi.com/v3/fixtures?league=1&season=2026";
+      
+    const headers = isApiSports
+      ? {
+          "x-apisports-key": apiKey
+        }
+      : {
+          "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
+          "x-rapidapi-key": apiKey
+        };
+
+    const res = await fetch(url, { headers });
 
     if (!res.ok) {
       throw new Error(`RapidAPI responded with status ${res.status}`);
