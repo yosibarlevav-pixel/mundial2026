@@ -1,16 +1,58 @@
-const teamCodeMap = {
-  'mex': 'MEX', 'rsa': 'RSA', 'kor': 'KOR', 'cze': 'CZE',
-  'can': 'CAN', 'bih': 'BIH', 'qat': 'QAT', 'sui': 'SUI',
-  'bra': 'BRA', 'mar': 'MAR', 'hai': 'HAI', 'sco': 'SCO',
-  'usa': 'USA', 'par': 'PAR', 'aus': 'AUS', 'tur': 'TUR',
-  'ger': 'GER', 'cuw': 'CUW', 'civ': 'CIV', 'ecu': 'ECU',
-  'ned': 'NED', 'jpn': 'JPN', 'swe': 'SWE', 'tun': 'TUN',
-  'esp': 'ESP', 'cpv': 'CPV', 'ksa': 'KSA', 'uru': 'URU',
-  'bel': 'BEL', 'egy': 'EGY', 'irn': 'IRN', 'nzl': 'NZL',
-  'fra': 'FRA', 'sen': 'SEN', 'irq': 'IRQ', 'nor': 'NOR',
-  'arg': 'ARG', 'alg': 'ALG', 'aut': 'AUT', 'jor': 'JOR',
-  'por': 'POR', 'cod': 'COD', 'uzb': 'UZB', 'col': 'COL',
-  'eng': 'ENG', 'cro': 'CRO', 'gha': 'GHA', 'pan': 'PAN'
+const normalizeName = (name) => {
+  if (!name) return "";
+  let n = name.toLowerCase().replace(/[^a-z0-9]/g, "");
+  if (n === "korearepublic" || n === "southkorea" || n === "korearep") return "kor";
+  if (n === "czechrepublic" || n === "czechia") return "cze";
+  if (n === "unitedstates" || n === "usa") return "usa";
+  if (n === "turkiye" || n === "turkey") return "tur";
+  if (n === "ivorycoast" || n === "cotedivoire") return "civ";
+  if (n === "saudiarabia") return "ksa";
+  if (n === "drcongo" || n === "congodr" || n === "demrepcongo") return "cod";
+  if (n === "bosniaandherzegovina" || n === "bosnia") return "bih";
+  if (n === "southafrica") return "rsa";
+  if (n === "capeverde") return "cpv";
+  if (n === "newzealand") return "nzl";
+  
+  const directMap = {
+    mexico: "mex",
+    canada: "can",
+    qatar: "qat",
+    switzerland: "sui",
+    brazil: "bra",
+    morocco: "mar",
+    haiti: "hai",
+    scotland: "sco",
+    paraguay: "par",
+    australia: "aus",
+    germany: "ger",
+    curacao: "cuw",
+    ecuador: "ecu",
+    netherlands: "ned",
+    japan: "jpn",
+    sweden: "swe",
+    tunisia: "tun",
+    spain: "esp",
+    uruguay: "uru",
+    belgium: "bel",
+    egypt: "egy",
+    iran: "irn",
+    france: "fra",
+    senegal: "sen",
+    iraq: "irq",
+    norway: "nor",
+    argentina: "arg",
+    algeria: "alg",
+    austria: "aut",
+    jordan: "jor",
+    portugal: "por",
+    uzbekistan: "uzb",
+    colombia: "col",
+    england: "eng",
+    croatia: "cro",
+    ghana: "gha",
+    panama: "pan"
+  };
+  return directMap[n] || n;
 };
 
 const matchesTemplate = [
@@ -131,13 +173,8 @@ export default async function handler(request, response) {
     const mappedScores = [];
 
     fixtures.forEach(f => {
-      const homeCode = f.teams.home.code;
-      const awayCode = f.teams.away.code;
-
-      if (!homeCode || !awayCode) return;
-
-      const homeLocal = Object.keys(teamCodeMap).find(k => teamCodeMap[k] === homeCode);
-      const awayLocal = Object.keys(teamCodeMap).find(k => teamCodeMap[k] === awayCode);
+      const homeLocal = normalizeName(f.teams.home.name);
+      const awayLocal = normalizeName(f.teams.away.name);
 
       if (homeLocal && awayLocal) {
         const match = matchesTemplate.find(m => m.home === homeLocal && m.away === awayLocal);
