@@ -8,7 +8,7 @@ const normalizeName = (name) => {
   if (n === "ivorycoast" || n === "cotedivoire") return "civ";
   if (n === "saudiarabia") return "ksa";
   if (n === "drcongo" || n === "congodr" || n === "demrepcongo") return "cod";
-  if (n === "bosniaandherzegovina" || n === "bosnia") return "bih";
+  if (n === "bosniaandherzegovina" || n === "bosnia" || n === "bosniaherzegovina") return "bih";
   if (n === "southafrica") return "rsa";
   if (n === "capeverde") return "cpv";
   if (n === "newzealand") return "nzl";
