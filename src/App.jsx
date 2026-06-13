@@ -273,6 +273,8 @@ export default function App() {
           isLive: true,
           home: homeT,
           away: awayT,
+          homeScore: activeLiveMatch.homeScore !== null ? activeLiveMatch.homeScore : 0,
+          awayScore: activeLiveMatch.awayScore !== null ? activeLiveMatch.awayScore : 0,
           days: 0, hours: 0, mins: 0, secs: 0
         });
         return;
@@ -691,7 +693,9 @@ export default function App() {
                     <span className="text-xs font-extrabold mt-1.5 text-slate-200">{countdownText.home?.name}</span>
                   </div>
                   <div className="bg-slate-950 px-4 py-2 rounded-xl border border-slate-800 text-center">
-                    <span className="text-3xl font-black font-mono text-amber-400">0 : 0</span>
+                    <span className="text-3xl font-black font-mono text-amber-400">
+                      {countdownText.homeScore !== undefined ? countdownText.homeScore : 0} : {countdownText.awayScore !== undefined ? countdownText.awayScore : 0}
+                    </span>
                     <span className="block text-[9px] text-emerald-400 font-bold uppercase tracking-widest mt-0.5 animate-pulse">מחצית א׳</span>
                   </div>
                   <div className="flex flex-col items-center">
@@ -865,27 +869,46 @@ export default function App() {
 
                         {/* Mid score predictor */}
                         <div className="flex flex-col items-center px-2">
-                          <div className="flex items-center gap-2">
-                            <input
-                              type="text"
-                              value={match.predictedHome}
-                              onChange={(e) => updatePrediction(match.id, 'home', e.target.value)}
-                              placeholder="-"
-                              className="w-10 h-10 bg-slate-955 text-slate-100 font-bold font-mono text-center rounded-lg border border-slate-700/80 focus:border-amber-400 focus:outline-none text-lg transition-colors"
-                            />
-                            <span className="text-slate-500 font-bold font-mono text-lg">:</span>
-                            <input
-                              type="text"
-                              value={match.predictedAway}
-                              onChange={(e) => updatePrediction(match.id, 'away', e.target.value)}
-                              placeholder="-"
-                              className="w-10 h-10 bg-slate-955 text-slate-100 font-bold font-mono text-center rounded-lg border border-slate-700/80 focus:border-amber-400 focus:outline-none text-lg transition-colors"
-                            />
-                          </div>
-
-                          <div className="mt-2 text-[10px] text-amber-400 font-semibold bg-amber-400/5 px-2 py-0.5 rounded-full">
-                            {match.homeScore !== null ? "תוצאת הדמיה" : "הזן ניחוש משלך"}
-                          </div>
+                          {match.homeScore !== null ? (
+                            <div className="flex flex-col items-center">
+                              <div className="flex items-center gap-2.5 bg-emerald-500/10 px-3.5 py-1.5 rounded-xl border border-emerald-500/20 shadow-inner">
+                                <span className="text-lg font-black font-mono text-emerald-400">{match.homeScore}</span>
+                                <span className="text-slate-500 font-bold font-mono text-xs">:</span>
+                                <span className="text-lg font-black font-mono text-emerald-400">{match.awayScore}</span>
+                              </div>
+                              <span className="mt-2 text-[9px] font-black text-emerald-400 bg-emerald-500/5 px-2 py-0.5 rounded-full uppercase tracking-wider">
+                                סופי
+                              </span>
+                              {(match.predictedHome !== '' || match.predictedAway !== '') && (
+                                <span className="mt-1 text-[9px] text-slate-500 font-medium">
+                                  ניחוש: {match.predictedAway || 0} - {match.predictedHome || 0}
+                                </span>
+                              )}
+                            </div>
+                          ) : (
+                            <div className="flex flex-col items-center">
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="text"
+                                  value={match.predictedHome}
+                                  onChange={(e) => updatePrediction(match.id, 'home', e.target.value)}
+                                  placeholder="-"
+                                  className="w-10 h-10 bg-slate-955 text-slate-100 font-bold font-mono text-center rounded-lg border border-slate-700/80 focus:border-amber-400 focus:outline-none text-lg transition-colors"
+                                />
+                                <span className="text-slate-500 font-bold font-mono text-lg">:</span>
+                                <input
+                                  type="text"
+                                  value={match.predictedAway}
+                                  onChange={(e) => updatePrediction(match.id, 'away', e.target.value)}
+                                  placeholder="-"
+                                  className="w-10 h-10 bg-slate-955 text-slate-100 font-bold font-mono text-center rounded-lg border border-slate-700/80 focus:border-amber-400 focus:outline-none text-lg transition-colors"
+                                />
+                              </div>
+                              <div className="mt-2 text-[10px] text-slate-400 font-semibold bg-slate-800/40 px-2 py-0.5 rounded-full">
+                                הזן ניחוש משלך
+                              </div>
+                            </div>
+                          )}
                         </div>
 
                         {/* Away team */}
