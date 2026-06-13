@@ -537,6 +537,46 @@ export default function App() {
     });
   };
 
+  const getShareText = () => {
+    const champ = bracket.champion ? `${bracket.champion.flag} ${bracket.champion.name}` : 'עדיין לא נבחרה';
+    const final1 = bracket.f1 ? `${bracket.f1.flag} ${bracket.f1.name}` : '?';
+    const final2 = bracket.f2 ? `${bracket.f2.flag} ${bracket.f2.name}` : '?';
+    const s1 = bracket.sf1 ? bracket.sf1.name : '?';
+    const s2 = bracket.sf2 ? bracket.sf2.name : '?';
+    const s3 = bracket.sf3 ? bracket.sf3.name : '?';
+    const s4 = bracket.sf4 ? bracket.sf4.name : '?';
+
+    return `🏆 הניחוש שלי למונדיאל 2026! 🏆\n\n🥇 האלופה שלי: ${champ}\n🥈 פיינליסטיות: ${final1} נגד ${final2}\n\n⚽ חצי הגמר:\n• ${s1}\n• ${s2}\n• ${s3}\n• ${s4}\n\nנחשו גם אתם בפורטל המונדיאל האינטראקטיבי! ⚽🏆`;
+  };
+
+  const copyToClipboard = () => {
+    playSound('success');
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(getShareText())
+        .then(() => {
+          setCopied(true);
+          setTimeout(() => setCopied(false), 2000);
+        })
+        .catch(err => {
+          console.error('Failed to copy:', err);
+        });
+    } else {
+      const textArea = document.createElement("textarea");
+      textArea.value = getShareText();
+      document.body.appendChild(textArea);
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } catch (err) {
+        console.error('Fallback copy failed:', err);
+      }
+      document.body.removeChild(textArea);
+    }
+  };
+
+
   useEffect(() => {
     if (selectedTeamDetails) {
       teamDialogRef.current?.showModal();
