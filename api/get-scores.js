@@ -4,7 +4,7 @@ const normalizeName = (name) => {
   if (n === "korearepublic" || n === "southkorea" || n === "korearep") return "kor";
   if (n === "czechrepublic" || n === "czechia") return "cze";
   if (n === "unitedstates" || n === "usa") return "usa";
-  if (n === "turkiye" || n === "turkey") return "tur";
+  if (n === "turkiye" || n === "turkey" || n === "trkiye") return "tur";
   if (n === "ivorycoast" || n === "cotedivoire") return "civ";
   if (n === "saudiarabia") return "ksa";
   if (n === "drcongo" || n === "congodr" || n === "demrepcongo") return "cod";
@@ -26,6 +26,8 @@ const normalizeName = (name) => {
     australia: "aus",
     germany: "ger",
     curacao: "cuw",
+    curao: "cuw",
+    curaao: "cuw",
     ecuador: "ecu",
     netherlands: "ned",
     japan: "jpn",
